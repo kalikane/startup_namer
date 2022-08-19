@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Class widget qui gère l'affichage de la liste des startups. 
 class RandomWords extends StatefulWidget {
   const RandomWords({Key? key}) : super(key: key);
 
@@ -122,6 +123,7 @@ void Refresh(WordPair pair){
 
 }
 
+// Class Widget qui gère l'affichage de la liste des favoris
 class ListSavedScreen extends StatefulWidget {
    ListSavedScreen({Key? key, required this.savedList}) : super(key: key);
   
