@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:startup_namer/widgets/startupName.dart';
 import './DataShared.dart';
 import 'ListSavedScreen.dart';
 
@@ -34,24 +35,6 @@ class RandomWords extends StatefulWidget {
 class _RandomWordsState extends State<RandomWords> {
   final _biggerFont = const TextStyle(fontSize: 18);
 
-  static final _RandomWordsState _instance = _RandomWordsState._internal();
-
-  // using a factory is important
-  // because it promises to return _an_ object of this type
-  // but it doesn't promise to make a new one.
-  factory _RandomWordsState() {
-    return _instance;
-  }
-
-  // This named constructor is the "real" constructor
-  // It'll be called exactly once, by the static property assignment above
-  // it's also private, so it can only be called in this class
-  _RandomWordsState._internal() {
-    // initialization logic
-  }
-
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +48,7 @@ class _RandomWordsState extends State<RandomWords> {
           )
         ],
       ),
+      backgroundColor: Colors.grey,
       body: ListView.builder(
         padding: const EdgeInsets.all(15.0),
         itemBuilder: (context, i) {
@@ -76,40 +60,52 @@ class _RandomWordsState extends State<RandomWords> {
             DataShared.suggestions.addAll(generateWordPairs().take(10));
           }
 
-          final alreadySaved =  DataShared.saved.contains(DataShared.suggestions[index]);
+          final alreadySaved =
+              DataShared.saved.contains(DataShared.suggestions[index]);
 
-          return ListTile(
-            title: Text(
-              DataShared.suggestions[index].asPascalCase,
-              style: _biggerFont,
-            ),
-            trailing: Icon(
-              alreadySaved ? Icons.favorite : Icons.favorite_border,
-              color: alreadySaved ? Colors.red : null,
-              semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
-            ),
-            onTap: () {
-              setState(() {
-                if (alreadySaved) {
-                  DataShared.saved.remove((DataShared.suggestions[index]));
-                } else {
-                  DataShared.saved.add(DataShared.suggestions[index]);
-                }
+          return StartupNameWidget(
+              alreadySaved: alreadySaved,
+              name: DataShared.suggestions[index].asPascalCase,
+              setAsFavorite: () {
+                setState(() {
+                  if (alreadySaved) {
+                    DataShared.saved.remove((DataShared.suggestions[index]));
+                  } else {
+                    DataShared.saved.add(DataShared.suggestions[index]);
+                  }
+                });
               });
-            },
-          );
+          // Card(
+          //   child: ListTile(
+          //     title: Text(
+          //       DataShared.suggestions[index].asPascalCase,
+          //       style: _biggerFont,
+          //     ),
+          //     trailing: Icon(
+          //       _alreadySaved ? Icons.favorite : Icons.favorite_border,
+          //       color: _alreadySaved ? Colors.red : null,
+          //       semanticLabel: _alreadySaved ? 'Remove from saved' : 'Save',
+          //     ),
+          //     onTap: () {
+          //       setState(() {
+          //         if (_alreadySaved) {
+          //           DataShared.saved.remove((DataShared.suggestions[index]));
+          //         } else {
+          //           DataShared.saved.add(DataShared.suggestions[index]);
+          //         }
+          //       });
+          //     },
+          //   ),
+          // );
         },
       ),
     );
   }
 
-  void  _pushSaved() async{
+  void _pushSaved() async {
     await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-          builder: (context) => const ListSavedScreen()),
+      MaterialPageRoute<void>(builder: (context) => const ListSavedScreen()),
     );
-    setState(() {
-    });
+    setState(() {});
   }
-
 }
