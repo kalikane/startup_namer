@@ -48,12 +48,7 @@ class _ListSavedScreenState extends State<ListSavedScreen> {
       },
     );
     final divided = tiles.isNotEmpty
-        ? ListTile.divideTiles(
-          
-            context: context,
-            tiles: tiles,
-            color: Colors.pink,
-          ).toList()
+        ? tiles.toList()
         : <Widget>[];
 
     return Scaffold(
