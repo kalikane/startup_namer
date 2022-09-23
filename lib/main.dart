@@ -75,28 +75,6 @@ class _RandomWordsState extends State<RandomWords> {
                   }
                 });
               });
-          // Card(
-          //   child: ListTile(
-          //     title: Text(
-          //       DataShared.suggestions[index].asPascalCase,
-          //       style: _biggerFont,
-          //     ),
-          //     trailing: Icon(
-          //       _alreadySaved ? Icons.favorite : Icons.favorite_border,
-          //       color: _alreadySaved ? Colors.red : null,
-          //       semanticLabel: _alreadySaved ? 'Remove from saved' : 'Save',
-          //     ),
-          //     onTap: () {
-          //       setState(() {
-          //         if (_alreadySaved) {
-          //           DataShared.saved.remove((DataShared.suggestions[index]));
-          //         } else {
-          //           DataShared.saved.add(DataShared.suggestions[index]);
-          //         }
-          //       });
-          //     },
-          //   ),
-          // );
         },
       ),
     );
@@ -106,6 +84,7 @@ class _RandomWordsState extends State<RandomWords> {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (context) => const ListSavedScreen()),
     );
+    // S'il y'a eu une 
     setState(() {});
   }
 }
